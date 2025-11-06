@@ -13,7 +13,7 @@
         <header role="banner"></header>
         <main role="main">
             <article>
-                <div class="container bg-white shadow-lg pt-5 mt-5 p-5 mb-5 rounded">
+                <div class="bg-white shadow-lg container pt-5 mt-5 p-5 mb-5 rounded">
                     <div class="text-center">
                         <h2>Group Relative Policy Optimization for Text-to-Speech with Large Language Models </h2>
                         <p></p>
@@ -21,19 +21,26 @@
                         <p><b>Chang Liu, Ya-Jun Hu, Ying-Ying Gao, Shi-Lei Zhang,&nbsp;Zhen-Hua Ling</b></p>
                     </div>
                     <p><b>Abstract:</b>&nbsp;This paper proposes a GRPO-based approach to enhance the performance of large language model (LLM)-based text-to-speech (TTS) models by deriving rewards from an off-the-shelf automatic speech recognition (ASR) model. Compared to previous reinforcement learning methods for LLM-based TTS, our method requires no dedicated model for reward computation or training. Moreover, we design a composite reward function that combines character error rate (CER) with negative log-likelihood (NLL) obtained from the ASR model, providing more informative and accurate reward signals. We apply GRPO fine-tuning to pre-trained LLM-based TTS models and evaluate their zero-shot TTS performance. Experimental results show that the proposed method substantially improves both the intelligibility and naturalness of synthesized speech. Ablation studies and further analyses confirm the effectiveness of integrating the two reward components.</p>
-                    <p style="text-align:center;"></p><br><br>
+                    <p style="text-align:center;"></p><br>
+                    <div class="text-center image-container"><img src="assets/img/1.png" alt="Content Consistency" style="width: 802px;">
+                        <p class="text-center caption">Content Consistency</p>
+                    </div><br>
                     <p>Codes and Models will be released after review.</p>
                     <p>Code is in progress at https://github.com/ryuclc/CosyVoice2-GRPO</p>
                     <p></p>
                     <p></p>
-                    <p><b>Contents</b></p>
+                    <p><b class="fs-4">Contents</b></p><b>CosyVoice2-0.5B</b>
                     <ul>
-                        <li><a href="#Zero-shot In-context Generation">Zero-shot In-context Generation</a></li>
+                        <li><a href="#Zero-shot-In-context-Generation1">Zero-shot In-context Generation</a></li>
+                    </ul><b>Llasa-1B</b>
+                    <ul>
+                        <li><a href="#Zero-shot-In-context-Generation2">Zero-shot In-context Generation</a></li>
                     </ul>
                     <p></p>
+                    <p>Note that our evaluation results of Llasa-1B are different from the&nbsp;<a href="https://arxiv.org/abs/2502.04128">official paper</a>&nbsp;due to the same unstable&nbsp;phenomenon as this <a href="https://github.com/zhenye234/LLaSA_training/issues/33">issue</a>. When compute WER/CER, we also include these unstable cases. We use the same settings,&nbsp;top_p=0.95 and temperature=0.9, as author described in&nbsp;<a href="https://huggingface.co/HKUSTAudio/Llasa-1B">huggingface</a></p>
                 </div>
                 <div class="bg-white shadow-lg container pt-5 mt-5 p-5 mb-5 rounded">
-                    <h2 id="Zero-shot In-context Generation" style="text-align:center;">Zero-shot In-context Generation</h2>
+                    <h2 id="Zero-shot-In-context-Generation1" style="text-align:center;">Zero-shot In-context Generation</h2>
                     <div class="table-responsive pt-3">
                         <table class="table table-hover pt-2">
                             <thead>
@@ -259,6 +266,156 @@
                                     <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/cosyvoice2/zero_shot-sub/ko/CER/ko_vo_FDAQ304_7_audienceI_01-002.wav">Your browser does not support the audio element.                        </audio><br></td>
                                     <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/cosyvoice2/zero_shot-sub/ko/NLL/ko_vo_FDAQ304_7_audienceI_01-002.wav">Your browser does not support the audio element.                        </audio><br></td>
                                     <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/cosyvoice2/zero_shot-sub/ko/CER+NLL/ko_vo_FDAQ304_7_audienceI_01-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg container pt-5 mt-5 p-5 mb-5 rounded">
+                    <h2 id="Zero-shot-In-context-Generation2" style="text-align:center;">Zero-shot In-context Generation</h2>
+                    <div class="table-responsive pt-3">
+                        <table class="table table-hover pt-2">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align:middle;text-align:center;">Language </th>
+                                    <th style="vertical-align:middle;text-align:center;width:250px;">Prompt </th>
+                                    <th style="vertical-align:middle;text-align:center;width:250px;">Text</th>
+                                    <th style="vertical-align:middle;text-align:center;width:190px;">Llasa-1B</th>
+                                    <th style="vertical-align:middle;text-align:center;width:190px;">+ GRPO-CER</th>
+                                    <th style="vertical-align:middle;text-align:center;width:190px;">+ GRPO-NLL</th>
+                                    <th style="vertical-align:middle;text-align:center;width:190px;">+ GRPO-CER-NLL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="8" style="vertical-align:middle;text-align:center;">zh</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/prompt/zh_chapter0_3_staffL_102.wav">Your browser does not support the audio element.                        </audio><br>哎呀，你都多少岁的人了，还像个小孩子！</td>
+                                    <td style="vertical-align:middle;text-align:center;">哦，等他酒醒以后，我打电话请公司的人来保他出去。</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/llasa/zh_chapter0_3_staffL_102-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER/zh_chapter0_3_staffL_102-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/NLL/zh_chapter0_3_staffL_102-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER+NLL/zh_chapter0_3_staffL_102-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/prompt/zh_vo_ABDLQ001_1_paimon_02.wav">Your browser does not support the audio element.                        </audio><br>没什么没什么，只是平时他总是站在这里，有点奇怪而已。</td>
+                                    <td style="vertical-align:middle;text-align:center;">北京在出行规模，城市影响力方面表表现优异。</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/llasa/zh_vo_ABDLQ001_1_paimon_02-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER/zh_vo_ABDLQ001_1_paimon_02-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/NLL/zh_vo_ABDLQ001_1_paimon_02-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER+NLL/zh_vo_ABDLQ001_1_paimon_02-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/prompt/zh_vo_CNLQ001_10_jhuba_01.wav">Your browser does not support the audio element.                        </audio><br>站住。几位是要去沙漠吧？我劝你们，还是考虑清楚再出发。</td>
+                                    <td style="vertical-align:middle;text-align:center;">事实上，不是淘宝，阿里巴巴太便宜了，而是商场贵了。</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/llasa/zh_vo_CNLQ001_10_jhuba_01-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER/zh_vo_CNLQ001_10_jhuba_01-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/NLL/zh_vo_CNLQ001_10_jhuba_01-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER+NLL/zh_vo_CNLQ001_10_jhuba_01-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/prompt/zh_vo_dialog_MDAQ061_diluc_02a_2.wav">Your browser does not support the audio element.                        </audio><br>偶尔我也会在那边做代班酒保，有什么话想跟我说的话，可以趁那时来酒馆找我。</td>
+                                    <td style="vertical-align:middle;text-align:center;">我终生的使命就是爬啊爬啊，爬向大海，不管有多远。</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/llasa/zh_vo_dialog_MDAQ061_diluc_02a_2-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER/zh_vo_dialog_MDAQ061_diluc_02a_2-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/NLL/zh_vo_dialog_MDAQ061_diluc_02a_2-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER+NLL/zh_vo_dialog_MDAQ061_diluc_02a_2-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/prompt/Prompt_Character_HY_1.wav">Your browser does not support the audio element.                        </audio><br>天地之间，无处不是野草般的生命。</td>
+                                    <td style="vertical-align:middle;text-align:center;">记得我拉满弓弦的那一刻，每一支箭都承载了我的希望与决心，射日亦是如此。</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/llasa/Prompt_Character_HY_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER/Prompt_Character_HY_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/NLL/Prompt_Character_HY_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER+NLL/Prompt_Character_HY_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/prompt/Prompt_Character_Peppa_2.wav">Your browser does not support the audio element.                        </audio><br>乔治，如果你假装做一个小宝宝，我保证会一直对你好的，永远都不会改变。</td>
+                                    <td style="vertical-align:middle;text-align:center;">妈妈，我今天在幼儿园学到了好多新东西，不过最有意思的还是和大家一起玩跷跷板。</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/llasa/Prompt_Character_Peppa_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER/Prompt_Character_Peppa_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/NLL/Prompt_Character_Peppa_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER+NLL/Prompt_Character_Peppa_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/prompt/Prompt_Character_ZBJ_2.wav">Your browser does not support the audio element.                        </audio><br>这舞步只有俺老猪会跳！顶多还有那个紫色的家伙！</td>
+                                    <td style="vertical-align:middle;text-align:center;">只要有我在，咱们的团队就坚不可摧！来吧，让他们见识见识咱的实力！</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/llasa/Prompt_Character_ZBJ_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER/Prompt_Character_ZBJ_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/NLL/Prompt_Character_ZBJ_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER+NLL/Prompt_Character_ZBJ_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/prompt/Prompt_Domain_Poem_Female_2.wav">Your browser does not support the audio element.                        </audio><br>寻寻觅觅，冷冷清清，凄凄惨惨戚戚。</td>
+                                    <td style="vertical-align:middle;text-align:center;">夜幕低垂，星光璀璨，仿佛是无数诗人在天穹中镌刻下的永恒诗篇，直抵心灵。</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/llasa/Prompt_Domain_Poem_Female_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER/Prompt_Domain_Poem_Female_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/NLL/Prompt_Domain_Poem_Female_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/zh/CER+NLL/Prompt_Domain_Poem_Female_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="8" style="vertical-align:middle;text-align:center;">en</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/prompt/en_vo_ABDLQ001_1_paimon_02.wav">Your browser does not support the audio element.                        </audio><br>No no! Just strange for him to not be around. Paimon always sees him standing here.</td>
+                                    <td style="vertical-align:middle;text-align:center;">The pilot was then re-shot with the different actors and aired.</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/llasa/en_vo_ABDLQ001_1_paimon_02-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER/en_vo_ABDLQ001_1_paimon_02-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/NLL/en_vo_ABDLQ001_1_paimon_02-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER+NLL/en_vo_ABDLQ001_1_paimon_02-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/prompt/en_vo_baizhu_dialog_greetingMorning.wav">Your browser does not support the audio element.                        </audio><br>Good morning. I'm in the habit of enjoying a cup of tea before breakfast. Shall I pour some for you?</td>
+                                    <td style="vertical-align:middle;text-align:center;">The nest is a flimsy platform of sticks is built by both sexes.</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/llasa/en_vo_baizhu_dialog_greetingMorning-000.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER/en_vo_baizhu_dialog_greetingMorning-000.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/NLL/en_vo_baizhu_dialog_greetingMorning-000.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER+NLL/en_vo_baizhu_dialog_greetingMorning-000.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/prompt/en_vo_barbara_dialog_pendant.wav">Your browser does not support the audio element.                        </audio><br>Everyone has their own desires. To bring together and fulfill those desires and make everyone happy — that is the purpose my Archon has bestowed upon me.</td>
+                                    <td style="vertical-align:middle;text-align:center;">Criticism centered on swing states such as Kentucky, Tennessee, Pennsylvania, and Maryland.</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/llasa/en_vo_barbara_dialog_pendant-001.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER/en_vo_barbara_dialog_pendant-001.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/NLL/en_vo_barbara_dialog_pendant-001.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER+NLL/en_vo_barbara_dialog_pendant-001.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/prompt/en_vo_CYAQ001_1_itto_23.wav">Your browser does not support the audio element.                        </audio><br>Hey, what's that supposed to mean!? You trying to say I'm not famous enough and my intentions are no good?</td>
+                                    <td style="vertical-align:middle;text-align:center;">It's a long way to Tipperary, it's a long way to go!</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/llasa/en_vo_CYAQ001_1_itto_23-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER/en_vo_CYAQ001_1_itto_23-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/NLL/en_vo_CYAQ001_1_itto_23-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER+NLL/en_vo_CYAQ001_1_itto_23-002.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/prompt/Prompt_Character_Trump_1.wav">Your browser does not support the audio element.                        </audio><br>President Carter, President Clinton, President Bush, President Obama, fellow Americans.</td>
+                                    <td style="vertical-align:middle;text-align:center;">We must ensure the security and prosperity of our nation. Together, we can restore America's greatness and pride for future generations.</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/llasa/Prompt_Character_Trump_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER/Prompt_Character_Trump_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/NLL/Prompt_Character_Trump_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER+NLL/Prompt_Character_Trump_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/prompt/Prompt_Domain_Audiobook_En_Female_2.wav">Your browser does not support the audio element.                        </audio><br>I have many brothers. For every Christmas there has ever been.</td>
+                                    <td style="vertical-align:middle;text-align:center;">In that distant era, countless legendary tales unfolded on this land, evoking a long-lost emotion in people's hearts.</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/llasa/Prompt_Domain_Audiobook_En_Female_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER/Prompt_Domain_Audiobook_En_Female_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/NLL/Prompt_Domain_Audiobook_En_Female_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER+NLL/Prompt_Domain_Audiobook_En_Female_2.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/prompt/Prompt_Domain_Conference_En_Female_1.wav">Your browser does not support the audio element.                        </audio><br>While the second is part of presentaton.</td>
+                                    <td style="vertical-align:middle;text-align:center;">Our research indicates that prolonged high-intensity work may lead to significant mental health issues, challenging workplace health policies.</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/llasa/Prompt_Domain_Conference_En_Female_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER/Prompt_Domain_Conference_En_Female_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/NLL/Prompt_Domain_Conference_En_Female_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER+NLL/Prompt_Domain_Conference_En_Female_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/prompt/Prompt_Domain_Drama_En_Male_1.wav">Your browser does not support the audio element.                        </audio><br>All right, check out this bad boy, twelve megabytes of RAM.</td>
+                                    <td style="vertical-align:middle;text-align:center;">As the sun set, he finally bid farewell to the town filled with memories, with new hopes in his heart.</td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/llasa/Prompt_Domain_Drama_En_Male_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER/Prompt_Domain_Drama_En_Male_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/NLL/Prompt_Domain_Drama_En_Male_1.wav">Your browser does not support the audio element.                        </audio><br></td>
+                                    <td style="vertical-align:middle;text-align:center;"><audio controls="controls" style="width:190px;"><source autoplay="" src="audios/llasa/zero_shot-sub/en/CER+NLL/Prompt_Domain_Drama_En_Male_1.wav">Your browser does not support the audio element.                        </audio><br></td>
                                 </tr>
                             </tbody>
                         </table>
